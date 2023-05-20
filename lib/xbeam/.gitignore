@@ -1,0 +1,15 @@
+**/*.mod
+**/*.o
+**/*.so
+**/*.a
+**/*~
+obj/
+
+
+lib/libxbeam_base\.dylib
+
+lib/
+
+*.dylib
+
+build/

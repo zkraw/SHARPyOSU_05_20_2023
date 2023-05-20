@@ -1,0 +1,14 @@
+LOAD naca0015.dat
+naca0015
+PANE
+OPER
+Visc 339900.1109877913
+Mach 0.029154518950437316
+PACC
+polar_file.txt
+
+ITER 100
+aseq -16 16 0.5
+
+
+quit
