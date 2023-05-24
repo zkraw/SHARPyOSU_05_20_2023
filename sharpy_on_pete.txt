@@ -1,0 +1,102 @@
+"""
+Created on Mon May  2 16:43:59 2023
+
+@author: Rohit K S S Vuppala
+         Graduate Student, 
+         Mechanical and Aerospace Engineering,
+         Oklahoma State University.
+
+@email: rvuppal@okstate.edu
+
+"""
+
+
+Prerequisites:
+---------------
+
+1. Have Anaconda setup by loading from Pete pre-installed modules. 
+
+	Commands to setup for the first time:
+
+		`module load anaconda3/2020.07` - will load anaconda3 module for setting up virtual env for sharpy code (anaconda3/2020.07 used as example, `module spider anaconda3` will show all the versions available)
+		Follow the on-screen instructions which dictate to run a command similar to `. /opt/anaconda3/etc/bashrc`
+		`conda init bash`	
+		`source ~/.bashrc`
+
+	Optional but highly recommended: 
+		Move the anaconda environment storage and package storage location to user's scratch space. This is essential to not fill up the storage on deafult($Home) space, which locks out the user
+		`conda config --add envs_dirs /scratch/$username/` - replace '$username'appropriately 		 
+        `conda config --add pkgs_dirs /scratch/$username/` - replace '$username'appropriately  
+        
+	  
+		 	 
+	 
+Installation:
+---------------
+
+1. Login into pete login node using :`ssh $username@pete.hpc.okstate.edu` -  replace '$username'appropriately 
+2. Request an interactive job using a single processor on a node- `srun --pty -p express -t 1:00:00 --nodes=1 --ntasks-per-node=1 /bin/bash`
+		- This requests a job on 'express' queue for 1 hr, you can choose different configuration as required
+3. Once the shell changes from `$username@pete` to something like `$username@n075`, we are on the interactive job and start installation.
+4. Navigate to the installation location (I recommend `cd /scratch/$username`)
+5. `git clone --recursive http://github.com/ImperialCollegeLondon/sharpy`
+6. `cd sharpy/utils`
+7. `conda env create -f environment_new.yml`
+8. `cd ../..`
+9. `conda activate sharpy_env`
+10. You should see something like `(sharpy_env) [usr@host] $`
+11. `cd sharpy`
+12. `mkdir build`
+13. `module load gcc/11.2.0`
+14. Add the following lines to the file `CMakeLists.txt` above `project(sharpy)` line and below `cmake_minimum_required(VERSION 3.9)`
+
+Final file would look like:
+
+`
+cmake_minimum_required(VERSION 3.9)
+
+set(CMAKE_C_COMPILER "/opt/gcc/11.2.0/gcc/bin/gcc")
+set(CMAKE_CXX_COMPILER "/opt/gcc/11.2.0/gcc/bin/g++")
+set(CMAKE_FC_COMPILER "/opt/gcc/11.2.0/gcc/bin/gfortran")
+
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
+project(sharpy)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+add_subdirectory(lib)
+`
+------------------		
+  Note: IMPORTANT	 
+------------------
+If you are using a different gcc version while loading the module change the above lines appropriately. 
+
+15. `cmake ..`
+16. `make install -j 4`
+17. `cd ..`
+18. `pip install .`
+19. Exit the interactive shell using the command `exit` or close the terminal.
+
+
+
+Testing with an in built tutorial case:
+----------------------------------------
+1. Request an interactive job using a single processor on a node- `srun --pty -p express -t 1:00:00 --nodes=1 --ntasks-per-node=1 /bin/bash`
+		- This requests a job on 'express' queue for 1 hr, you can choose different configuration as required
+2. Once the shell changes from `$username@pete` to something like `$username@n075`, we are on the interactive job and start installation.     
+3. Navigate to the location with the run case.
+4. `conda activate sharpy_env`
+5. Then follow the instructions to run the case.
+
+------------------		
+  Note: IMPORTANT	 
+------------------
+It is not advised to run interactive job on Pete for multiple jobs. Please submit batch jobs as shown on 'https://hpcc.okstate.edu/pete-tutorial.html'. All the commands used would go into the bash script file with one addition of `source ~/.bashrc` to import your anaconda path in bash environment.
+
+
+
+
+ 
