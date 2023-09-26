@@ -1250,8 +1250,8 @@ def turbulent_velocity_feild_controller(route, case_name, set):
                                                 'time_history_input_file': os.path.join(route, 'roll.csv')
                                                                      },
 
-                                    'altitude':{'P': .15,
-                                                'I': 0,
+                                    'altitude':{'P': .00875,
+                                                'I': -.0005,
                                                 'D': 0,
                                                 'input_type': 'for_pos_z',
                                                 'dt': dt,

@@ -28,7 +28,7 @@ route = os.path.dirname(os.path.realpath(__file__))
 
 # xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "VTK_resampled_fine_h5_write", 'RUN_VTK_resampled_fine.xdmf') 
 
-xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "const_8_x_h5_write", 'RUN_const_8_x.xdmf') 
+xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "const_8_x_longer_h5_write", 'RUN_const_8_x_longer.xdmf') 
 # xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "const_3_z_h5_write", 'RUN_const_3_z_Assymmetric.xdmf') 
 # xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "const_3_z_h5_write", 'RUN_const_3_z_Symmetric.xdmf') 
 # -----------------------------------------------------------------------------------------------------
@@ -37,10 +37,10 @@ xmf_file = os.path.join(route, "Velocity Field", "Python Creation", "const_8_x_h
 plot_file_loc = os.path.join(route, "Sim_Plots_and_Results") 
 
 # file = 'T_Tail_Stiff_Flat linassem.xlsx'
-file = 'T_Tail_Stiff_Flat linassem.xlsx'
+file = 'Urban Air Mobility.xlsx'
 
 global case_name
-case_name = 'test'
+case_name = 'new_case'
 excel = True 
 
 input_file = os.path.dirname(os.path.abspath(__file__)) + '/Input Files/' + file 
@@ -53,12 +53,12 @@ set['flow'] = ['BeamLoader',
         'AerogridLoader',
         # 'NonLinearStatic',
         # 'StaticUvlm',
-        # 'StaticCoupled',
+        'StaticCoupled',
         'StaticTrim',
         'BeamLoads',
         'AerogridPlot',
         'BeamPlot',
-        'DynamicCoupled',
+        # 'DynamicCoupled',
         # 'Modal',
         # 'LinearAssembler',
         # 'AsymptoticStability',
@@ -79,12 +79,12 @@ set['beam_opt_nodes'] = run.beam_opt_nodes
 set['beam_opt_elems'] = run.beam_opt_elems
 set['beam_opt_sym'] = run.beam_opt_sys
 
-set['u_inf'] = 10 
+set['u_inf'] = 79.74 
 set['rho'] = 1.225
 
-set['alpha'] =  3.9077*np.pi/180
-set['cs_deflection'] = -1.3387*np.pi/180
-set['initial_thrust'] = 5.5913 
+set['alpha'] =  3.8865*np.pi/180
+set['cs_deflection'] = 9.4579*np.pi/180
+set['initial_thrust'] = 1035.0551
 
 # T_Tail with dihedral
 # set['alpha'] =  3.8732*np.pi/180
@@ -97,7 +97,7 @@ set['m_star'] = 20
 m = 4 # chordwise panels  
 set['tstep_factor'] = 1
 # physical_time = 10 
-physical_time = 20 
+physical_time = 30 
 # set['dt'] = .2
 set['dt'] = 1.0 / m / set['u_inf'] * set['tstep_factor']
 set['n_tstep'] = round(physical_time/set['dt'])
@@ -107,16 +107,13 @@ set['offset'] = np.array([0, 0, 0])
 
 generate_dyn_file_2([set['dt'], set['n_tstep'], route, case_name, set['amplitude'], set['period'], set['free_flight']], run.num_nodes)
 
-# from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import t_tail_1_cos_gust
-# t_tail_1_cos_gust(route, case_name, set) 
+from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import static_trim_viscous
+static_trim_viscous(route, case_name, set) 
 
-# from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import turbulent_velocity_feild
-# turbulent_velocity_feild(route, case_name, set) 
+# from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import turbulent_velocity_feild_controller
+# turbulent_velocity_feild_controller(route, case_name, set) 
 
-from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import turbulent_velocity_feild_controller
-turbulent_velocity_feild_controller(route, case_name, set) 
-
-plot_sim_flag = True 
+plot_sim_flag = False 
 
 # from OSU_Contribution.utils.OPT_functions.init_sharpy_settings import linearassembler
 # linearassembler(route, case_name, set) 

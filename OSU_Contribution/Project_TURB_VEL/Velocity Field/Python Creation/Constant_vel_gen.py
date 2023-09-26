@@ -6,17 +6,17 @@ import fnmatch
 import scipy
 import re
 
-file_write = 'const_8_x' # name of folder with data in same directory
+file_write = 'const_8_x_longer' # name of folder with data in same directory
 set = {}
 
 # Define the shape of the grid
-grid_shape = (200, 40, 100)
+grid_shape = (400, 40, 120)
 set['grid_shape'] = grid_shape
 
 # Lengths of grid (m)
-x_dis = 200 
+x_dis = 400 
 y_dis = 40 
-z_dis = 100 
+z_dis = 120 
 
 # in code dimensions are set 
 dx =  x_dis / (grid_shape[0] - 1)
@@ -26,7 +26,7 @@ dz =  z_dis / (grid_shape[2] - 1)
 set['d_L'] = [dx, dy, dz]
 
 # origin of grid
-set['origin'] = [-x_dis, -y_dis/2, -z_dis/2]
+set['origin'] = [-x_dis-10, -y_dis/2, -z_dis/2]
 
 # making a total of 3 files that specify the wind velocity filed at time = 0, 1, 2
 time_step = 1 

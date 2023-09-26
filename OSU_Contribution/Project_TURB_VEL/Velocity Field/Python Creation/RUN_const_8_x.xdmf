@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" []>
+<Xdmf xmlns:xi="http://www.w3.org/2003/XInclude" Version="3.0">
+<Domain>
+<Time TimeType="HyperSlab">
+	<DataItem Format="XML" NumberType="Float" Dimensions="3">
+	0.0 1.0 0.0
+	</DataItem>
+</Time>
+<Topology TopologyType="3DCORECTMesh" Dimensions="200 40 100"/>
+<Geometry GeometryType="ORIGIN_DXDYDZ">
+	<DataItem Name="Origin" Dimensions="3" NumberType="Float" Precision="4" Format="XML">
+	-200 -20.0 -50.0
+	</DataItem>
+	<DataItem Name="Spacing" Dimensions="3" NumberType="Float" Precision="4" Format="XML">
+	1.0050 1.0256 1.0101
+	</DataItem>
+</Geometry>
+<Grid CollectionType="Temporal" GridType="Collection" Name="Collection">
+	<Grid Name="Grid0">
+	<Attribute Center="Node" ElementCell="" ElementDegree="0" ElementFamily="" ItemType="" Name="ux" Type="Scalar">
+	<DataItem DataType="Float" Dimensions="200 40 100 3" Format="HDF" Precision="8">ux_0000.h5</DataItem>
+	</Attribute>
+	<Attribute Center="Node" ElementCell="" ElementDegree="0" ElementFamily="" ItemType="" Name="uy" Type="Scalar">
+	<DataItem DataType="Float" Dimensions="200 40 100 3" Format="HDF" Precision="8">uy_0000.h5</DataItem>
+	</Attribute>
+	<Attribute Center="Node" ElementCell="" ElementDegree="0" ElementFamily="" ItemType="" Name="uz" Type="Scalar">
+	<DataItem DataType="Float" Dimensions="200 40 100 3" Format="HDF" Precision="8">uz_0000.h5</DataItem>
+	</Attribute>
+	</Grid>
+</Grid>
+</Domain>
+</Xdmf>
